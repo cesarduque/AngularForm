@@ -1,7 +1,9 @@
 var displayManager ={
     bindings:{},
     controller: function($rootScope, $scope, $timeout){
-        var ctrl = this
+        var ctrl = this;
+        ctrl.changeOption;
+
         ctrl.user = {
             name:'',
             lastName:'',
@@ -12,10 +14,22 @@ var displayManager ={
         
         $rootScope.$on('createUser',function(event, data){
             ctrl.user = data;
-        });        
+        });
+        
+        ctrl.changeUserName = function (){
+            if(!ctrl.changeOption){
+                ctrl.changeOption = true;                
+                ctrl.user.userName = ctrl.user.name + "." + ctrl.user.lastName;                                       
+            }
+            else{
+                ctrl.changeOption = false;
+                ctrl.user.userName = ctrl.user.name[0] + ctrl.user.lastName;                                 
+            }         
+        }       
+        
     },
     template:`
-        <form name="form" ng-submit="$ctrl.loginUser();">
+        <form name="form" ng-submit="$ctrl.changeUserName();">
             <div>
                 <label for="inputName">Name:</label>
                 <input name="inputName" type="text" ng-model="$ctrl.user.name" ng-disabled="true" upper-case-letter>
@@ -28,12 +42,12 @@ var displayManager ={
 
             <div>
                 <label for="inputUserName">User Name:</label>
-                <input name="inputUserName" type="text" ng-model="$ctrl.user.userName" ng-disabled="true">
+                <input name="inputUserName" type="text" ng-model="$ctrl.user.userName" ng-disabled="true" upper-lower>
             </div>            
 
             <div>
                 <label for="inputPassword">Password:</label>
-                <input name="inputPassword" type="password" ng-model="$ctrl.user.password" ng-disabled="true">
+                <input name="inputPassword" type="text" ng-model="$ctrl.user.password" ng-disabled="true">
             </div>
             
             <div>
