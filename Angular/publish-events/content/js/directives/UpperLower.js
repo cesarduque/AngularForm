@@ -5,7 +5,7 @@ function upperLower(){
             var ngModelCtrl = $ctrl;
             ngModelCtrl.$formatters.unshift(function(value){
                 newUserName = '';
-                var ran = Math.random();
+                let ran = Math.random();
                 console.log(ran);
                 var parameter = 0;
                 if(ran < 0.5){
@@ -13,6 +13,8 @@ function upperLower(){
                 }else{
                     parameter = 1;
                 }
+                if(ran < 0.5){
+                parameter =  ran < 0.5 ? 0 : 1;
                 angular.forEach(value, function(obj, key) {
                     if (key%2 == parameter){
                         newUserName = newUserName +obj.toUpperCase();
